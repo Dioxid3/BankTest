@@ -3,19 +3,19 @@ package com.example.banktest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AccountData {
+public class ProfileData {
 
     private String name = "Matti Meikäläinen";
     private String address = "Skinnarila";
     private String phoneNumber = "+3584001234567";
 
-    public AccountData(String name, String address, String phoneNumber) {
+    public ProfileData(String name, String address, String phoneNumber) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
 
-    public AccountData (){
+    public ProfileData(){
     }
 
     public String getName() {

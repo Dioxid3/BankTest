@@ -20,10 +20,20 @@ public class SecondActivity extends AppCompatActivity {
         editAccountBtn.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             Intent intent = new Intent(SecondActivity.this, AccountDataEditor.class);
+             Intent intent = new Intent(SecondActivity.this, ProfileDataEditor.class);
              startActivity(intent);
          }
         });
+
+        Button showAccountsBtn = (Button)findViewById(R.id.showAccountsBtn);
+        showAccountsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, AccountsActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
