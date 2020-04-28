@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class AccountDataEditor extends AppCompatActivity {
 
@@ -25,7 +29,18 @@ public class AccountDataEditor extends AppCompatActivity {
         setContentView(R.layout.activity_account_data_editor);
 
         if (accountData == null) {
-            accountData = new AccountData();
+            Log.e("1.", "virhe");
+            JSONObject obj =  JsonFileUtility.loadFile("accountData", AccountDataEditor.this);
+            Log.e("2.", "virhe");
+            if (obj == null){
+                accountData = new AccountData();
+            } else {
+                try {
+                    accountData = new AccountData(obj.getString("name"), obj.getString("address"), obj.getString("phoneNumber"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         name = (EditText)findViewById(R.id.nameEditText);
@@ -43,8 +58,13 @@ public class AccountDataEditor extends AppCompatActivity {
                 accountData.setName(name.getText().toString());
                 accountData.setAddress(address.getText().toString());
                 accountData.setPhoneNumber(phoneNumber.getText().toString());
+
+                JSONObject obj = accountData.makeJSONObject();
+                JsonFileUtility.saveFile(obj, "accountData", AccountDataEditor.this);
+
                 Intent intent = new Intent(AccountDataEditor.this, SecondActivity.class);
                 startActivity(intent);
+
 
             }
         });

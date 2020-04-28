@@ -1,5 +1,8 @@
 package com.example.banktest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AccountData {
 
     private String name = "Matti Meikäläinen";
@@ -37,5 +40,20 @@ public class AccountData {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public JSONObject makeJSONObject () {
+
+        JSONObject obj = new JSONObject() ;
+
+        try {
+            obj.put("name", name);
+            obj.put("address", address);
+            obj.put("phoneNumber", phoneNumber);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return obj;
     }
 }
