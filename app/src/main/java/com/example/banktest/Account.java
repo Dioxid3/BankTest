@@ -1,6 +1,11 @@
 package com.example.banktest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Account {
+
+
 
     public enum AccountType {SAVINGS_ACCOUNT, CURRENT_ACCOUNT};
 
@@ -11,7 +16,29 @@ public class Account {
     private double usageLimit = 100;
     private boolean canPay = true;
 
+    public Account(AccountType accountType, String accountID, String accountName, boolean canPay) {
+        this.accountType = accountType;
+        this.accountID = accountID;
+        this.accountName = accountName;
+        this.canPay = canPay;
+    }
+
     public Account() {
+    }
+
+    public Account(JSONObject obj) {
+
+        try {
+            this.accountType = AccountType.valueOf(obj.getString("accountType"));
+            this.accountID = obj.getString("accountID");
+            this.accountName = obj.getString("accountName");
+            this.balance = obj.getDouble("balance");
+            this.usageLimit = obj.getDouble("usageLimit");
+            this.canPay = obj.getBoolean("canPay");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -45,6 +72,7 @@ public class Account {
         return accountType;
     }
 
+
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
@@ -71,5 +99,30 @@ public class Account {
 
     public void setCanPay(boolean canPay) {
         this.canPay = canPay;
+    }
+
+    public String getAccountID() {
+        return accountID;
+    }
+
+
+
+    public JSONObject makeJSONObject () {
+
+        JSONObject obj = new JSONObject() ;
+
+        try {
+            obj.put("accountType", accountType);
+            obj.put("accountID", accountID);
+            obj.put("accountName", accountName);
+            obj.put("balance", balance);
+            obj.put("usageLimit", usageLimit);
+            obj.put("canPay", canPay);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return obj;
     }
 }

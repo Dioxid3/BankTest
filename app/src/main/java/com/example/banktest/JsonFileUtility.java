@@ -22,10 +22,11 @@ public class JsonFileUtility {
      * @param object
      * @param fileName
      */
-    public static void  saveFile(JSONObject object, String fileName, Context context) {
+    public static void  saveFile(JSONObject object, String folderName, String fileName, Context context) {
         try {
             Writer output = null;
-            File file = new File(context.getFilesDir() + "/" + fileName + ".json");
+            File file = new File(context.getFilesDir() + "/" + folderName + "/" + fileName + ".json");
+            file.getParentFile().mkdirs();
             output = new BufferedWriter(new FileWriter(file));
             output.write(object.toString());
             output.close();
@@ -42,10 +43,34 @@ public class JsonFileUtility {
      * @param context
      * @return
      */
-    public static JSONObject loadFile(String fileName, Context context) {
+    public static JSONObject loadFile(String folderName, String fileName, Context context) {
         String json = null;
         try {
-            File file = new File(context.getFilesDir() + "/" + fileName + ".json");
+            File file = new File(context.getFilesDir() + "/" + folderName + "/" + fileName + ".json");
+            InputStream is = new FileInputStream(file);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        }
+        if (json == null){
+            return null;
+        }
+        try {
+            return new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static JSONObject loadFile(File file) {
+        String json = null;
+        try {
             InputStream is = new FileInputStream(file);
             int size = is.available();
             byte[] buffer = new byte[size];

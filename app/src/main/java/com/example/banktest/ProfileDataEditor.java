@@ -28,7 +28,7 @@ public class ProfileDataEditor extends AppCompatActivity {
 
         if (profileData == null) {
 
-            JSONObject obj =  JsonFileUtility.loadFile("accountData", ProfileDataEditor.this);
+            JSONObject obj =  JsonFileUtility.loadFile("profile","accountData", ProfileDataEditor.this);
 
             if (obj == null){
                 profileData = new ProfileData();
@@ -58,7 +58,7 @@ public class ProfileDataEditor extends AppCompatActivity {
                 profileData.setPhoneNumber(phoneNumber.getText().toString());
 
                 JSONObject obj = profileData.makeJSONObject();
-                JsonFileUtility.saveFile(obj, "accountData", ProfileDataEditor.this);
+                JsonFileUtility.saveFile(obj,"profile", "accountData", ProfileDataEditor.this);
 
                 Intent intent = new Intent(ProfileDataEditor.this, SecondActivity.class);
                 startActivity(intent);
