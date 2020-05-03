@@ -34,6 +34,15 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button depositBtn = (Button)findViewById(R.id.sa_depositBtn);
+        depositBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, DepositActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 

@@ -38,23 +38,18 @@ public class AccountsActivity extends AppCompatActivity {
      * Loads accounts from files
      */
     private void loadAccounts(){
-        File folder = new File(AccountsActivity.this.getFilesDir() + "/accounts");
-        File[] listOfFiles = folder.listFiles();
-
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                addAccountToView(file);
-            }
+        Account[] accounts = AccountUtility.getAccounts();
+        for (int i = 0; i<accounts.length; i++) {
+            addAccountToView(accounts[i]);
         }
+
     }
 
     /**
      * Adds account to view
-     * @param file
+     * @param account
      */
-    private void addAccountToView(File file) {
-        JSONObject obj = JsonFileUtility.loadFile(file);
-        final Account account = new Account(obj);
+    private void addAccountToView(final Account account) {
         TextView textView1 = new TextView(this);
         textView1.setText("ID: " + account.getAccountID() + " ");
         TextView textView2 = new TextView(this);

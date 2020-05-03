@@ -62,8 +62,7 @@ public class AccountEditor extends AppCompatActivity {
                 boolean newCanPay = canPay.isChecked();
 
                 Account newAccount = new Account(Account.AccountType.valueOf(newAccountType), newAccountID, newAccountName, newCanPay);
-                JSONObject json = newAccount.makeJSONObject();
-                JsonFileUtility.saveFile(json, "accounts", newAccountID, AccountEditor.this);
+                AccountUtility.editAccount(newAccount, AccountEditor.this);
 
                 Intent intent = new Intent(AccountEditor.this, AccountsActivity.class);
                 startActivity(intent);
@@ -71,5 +70,5 @@ public class AccountEditor extends AppCompatActivity {
         });
     }
 
-    
+
 }

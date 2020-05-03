@@ -1,5 +1,7 @@
 package com.example.banktest;
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,11 +49,13 @@ public class Account implements Serializable {
      * Adds money to account
      * @param amount
      */
-    public void deposit(double amount) {
+    public void deposit(double amount, Context context) {
         if (amount < 0){
             return;
         }
         balance = balance + amount;
+        JsonFileUtility.saveFile(this.makeJSONObject(), "accounts", this.getAccountID(), context);
+
 
     }
 
@@ -59,11 +63,12 @@ public class Account implements Serializable {
      * Withdraws money from account
      * @param amount
      */
-    public void withDraw(double amount) {
+    public void withDraw(double amount, Context context) {
         if (amount < 0){
             return;
         }
         balance = balance - amount;
+        JsonFileUtility.saveFile(this.makeJSONObject(), "accounts", this.getAccountID(), context);
     }
 
     public double getBalance(){

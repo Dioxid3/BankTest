@@ -51,8 +51,7 @@ public class AccountCreation extends AppCompatActivity {
                 boolean canPay = canPayCheck.isChecked();
 
                 Account newAccount = new Account(Account.AccountType.valueOf(accountType), accountID, accountName, canPay);
-                JSONObject json = newAccount.makeJSONObject();
-                JsonFileUtility.saveFile(json, "accounts", accountID, AccountCreation.this);
+                AccountUtility.addAccount(newAccount, AccountCreation.this);
 
                 Intent intent = new Intent(AccountCreation.this, AccountsActivity.class);
                 startActivity(intent);
