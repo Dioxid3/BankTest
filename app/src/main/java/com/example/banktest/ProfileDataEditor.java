@@ -44,7 +44,7 @@ public class ProfileDataEditor extends AppCompatActivity {
         name = (EditText)findViewById(R.id.nameEditText);
         address = (EditText)findViewById(R.id.addressEditText);
         phoneNumber = (EditText) findViewById(R.id.phoneNumberEditText);
-        saveBtn = (Button)findViewById(R.id.saveBtn);
+        saveBtn = (Button)findViewById(R.id.ae_saveBtn);
 
         name.setText(profileData.getName());
         address.setText(profileData.getAddress());

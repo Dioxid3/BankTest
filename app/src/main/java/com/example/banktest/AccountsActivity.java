@@ -54,13 +54,21 @@ public class AccountsActivity extends AppCompatActivity {
      */
     private void addAccountToView(File file) {
         JSONObject obj = JsonFileUtility.loadFile(file);
-        Account account = new Account(obj);
+        final Account account = new Account(obj);
         TextView textView1 = new TextView(this);
         textView1.setText("ID: " + account.getAccountID() + " ");
         TextView textView2 = new TextView(this);
         textView2.setText("Name: " + account.getAccountName());
         Button button = new Button(this);
         button.setText("Edit");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountsActivity.this, AccountEditor.class);
+                intent.putExtra("Account", account);
+                startActivity(intent);
+            }
+        });
         LinearLayout ll = new LinearLayout(this);
         ll.addView(textView1);
         ll.addView(textView2);

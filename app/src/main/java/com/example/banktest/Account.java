@@ -3,7 +3,9 @@ package com.example.banktest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 
 
 
