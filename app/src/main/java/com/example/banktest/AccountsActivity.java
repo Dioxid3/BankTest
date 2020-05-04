@@ -51,9 +51,7 @@ public class AccountsActivity extends AppCompatActivity {
      */
     private void addAccountToView(final Account account) {
         TextView textView1 = new TextView(this);
-        textView1.setText("ID: " + account.getAccountID() + " ");
-        TextView textView2 = new TextView(this);
-        textView2.setText("Name: " + account.getAccountName());
+        textView1.setText(account.getAccountID() + " " + account.getAccountName() + " " + account.getBalance() + " €");
         Button button = new Button(this);
         button.setText("Edit");
         button.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +64,6 @@ public class AccountsActivity extends AppCompatActivity {
         });
         LinearLayout ll = new LinearLayout(this);
         ll.addView(textView1);
-        ll.addView(textView2);
         ll.addView(button);
         LinearLayout accountsLayout = (LinearLayout)findViewById(R.id.accountsLayout);
         accountsLayout.addView(ll);

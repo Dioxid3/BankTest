@@ -52,6 +52,15 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button transferBtn = (Button)findViewById(R.id.sa_transferBtn);
+        transferBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, TransferActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
     }
