@@ -43,6 +43,14 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button payBtn = (Button)findViewById(R.id.payBtn);
+        payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, PayActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
