@@ -48,6 +48,10 @@ public class WithDrawActivity extends AppCompatActivity {
         withDrawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Object item = accountSpinner.getSelectedItem();
+                if (item == null){
+                    return;
+                }
                 String accountID = accountSpinner.getSelectedItem().toString();
                 Account account = AccountUtility.getAccount(accountID);
                 try {

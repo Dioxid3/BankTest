@@ -72,6 +72,10 @@ public class PayActivity extends AppCompatActivity implements DatePickerDialog.O
             payButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
+                    Object item = accountSpinner.getSelectedItem();
+                    if (item == null){
+                        return;
+                    }
                     String accountID = accountSpinner.getSelectedItem().toString();
                     Account account = AccountUtility.getAccount(accountID);
 

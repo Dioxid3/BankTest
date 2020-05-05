@@ -81,13 +81,13 @@ public class Transaction {
         JSONObject obj = new JSONObject() ;
 
         try {
-            obj.put("accountIDFrom", accountIDFrom);
-            obj.put("accountIDTo", accountIDTo);
+            obj.put("accountIDFrom", (accountIDFrom == null ? JSONObject.NULL : accountIDFrom));
+            obj.put("accountIDTo", (accountIDTo == null ? JSONObject.NULL : accountIDTo));
             obj.put("amount", amount);
-            obj.put("transactionType", transactionType);
-            obj.put("reference", reference);
-            obj.put("message", message);
-            obj.put("date", date);
+            obj.put("transactionType", (transactionType == null ? JSONObject.NULL : transactionType));
+            obj.put("reference", (reference == null ? JSONObject.NULL : reference));
+            obj.put("message", (message == null ? JSONObject.NULL : message));
+            obj.put("date", (date == null ? JSONObject.NULL : date.getTime()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -105,20 +105,23 @@ public class Transaction {
             this.transactionType = TransactionType.valueOf(obj.getString("transactionType"));
             this.reference = obj.getString("reference");
             this.message = obj.getString("message");
-            this.date = (Date)obj.get("date");
+            this.date = new Date(obj.getLong("date"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    public String makeUIText(){
+    public String getUIText(){
         if(TransactionType.DEPOSIT.equals(transactionType)){
             return date + " Deposit " + accountIDTo + " " + amount + " €";
         } else if(TransactionType.PAY.equals(transactionType)) {
             return date + " Pay to " + accountIDTo + " " + amount + " €";
         } else if(TransactionType.MY_TRANSFER.equals(transactionType)) {
-            return date + " My transfer to " + accountIDTo + " " + amount + " €";
+            return date + " My transfer from " + accountIDFrom + " to " + accountIDTo + " " + amount + " €";
+        } else if(TransactionType.WITHDRAW.equals(transactionType)) {
+            return date + " Withdraw " + accountIDTo + " " + amount + " €";
+
         } else {
             return "Error";
         }

@@ -70,6 +70,15 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button historyBtn = (Button)findViewById(R.id.sa_eventsHistoryBtn);
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, AccountHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
     }

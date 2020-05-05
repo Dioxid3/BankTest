@@ -51,6 +51,10 @@ public class DepositActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText amount = (EditText)findViewById(R.id.ad_amount);
+                Object item = accountSpinner.getSelectedItem();
+                if (item == null){
+                    return;
+                }
                 String accountID = accountSpinner.getSelectedItem().toString();
                 Account account = AccountUtility.getAccount(accountID);
                 try {

@@ -17,7 +17,9 @@ public class AccountUtility {
     public static void loadAccounts(Context context){
         File folder = new File(context.getFilesDir() + "/accounts");
         File[] listOfFiles = folder.listFiles();
-
+        if (listOfFiles == null){
+            return;
+        }
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 JSONObject obj = JsonFileUtility.loadFile(file);

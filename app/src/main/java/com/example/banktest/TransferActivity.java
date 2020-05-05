@@ -66,8 +66,16 @@ public class TransferActivity extends AppCompatActivity {
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Object item = fromAccount.getSelectedItem();
+                if (item == null){
+                    return;
+                }
                 String accountID1 = fromAccount.getSelectedItem().toString();
                 Account account1 = AccountUtility.getAccount(accountID1);
+                Object toItem = toAccount.getSelectedItem();
+                if(toItem == null){
+                    return;
+                }
                 String accountID2 = toAccount.getSelectedItem().toString();
                 Account account2 = AccountUtility.getAccount(accountID2);
                 try {

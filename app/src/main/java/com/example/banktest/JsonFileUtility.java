@@ -50,6 +50,9 @@ public class JsonFileUtility {
         String json = null;
         try {
             File file = new File(context.getFilesDir() + "/" + folderName + "/" + fileName + ".json");
+            if (!file.exists()){
+                return null;
+            }
             InputStream is = new FileInputStream(file);
             int size = is.available();
             byte[] buffer = new byte[size];
