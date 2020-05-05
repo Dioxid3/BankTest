@@ -75,6 +75,9 @@ public class TransferActivity extends AppCompatActivity {
                     if (amountDouble <= account1.getBalance()){
                         account1.withDraw(amountDouble, TransferActivity.this);
                         account2.deposit(amountDouble, TransferActivity.this);
+                        Transaction transaction = new Transaction(accountID1, accountID2, amountDouble);
+                        JsonFileUtility.saveFile(transaction.makeJSONObject(), "history/" + accountID1, transaction.getTime(), TransferActivity.this);
+                        JsonFileUtility.saveFile(transaction.makeJSONObject(), "history/" + accountID2, transaction.getTime(), TransferActivity.this);
                         Intent intent = new Intent(TransferActivity.this, SecondActivity.class);
                         startActivity(intent);
                     } else{

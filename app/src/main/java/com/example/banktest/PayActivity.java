@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ public class PayActivity extends AppCompatActivity implements DatePickerDialog.O
 
         private TextView dateText;
         private DatePickerDialog.OnDateSetListener mDateSetListener;
+        private Date chosenDate = null;
 
         @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -42,6 +44,9 @@ public class PayActivity extends AppCompatActivity implements DatePickerDialog.O
             final Spinner accountSpinner = (Spinner)findViewById(R.id.pa_accountSpinner);
             final TextView balance = (TextView)findViewById(R.id.pa_balance);
             final EditText amount = (EditText)findViewById(R.id.pa_amount);
+            final EditText recipient = (EditText)findViewById(R.id.etRecipient);
+            final EditText reference = (EditText)findViewById(R.id.etReference);
+            final EditText message = (EditText)findViewById(R.id.etMessage);
 
 
             accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -74,6 +79,9 @@ public class PayActivity extends AppCompatActivity implements DatePickerDialog.O
                         double doubleAmount  = Double.parseDouble(amount.getText().toString());
                         if (doubleAmount<= account.getBalance()){
                             account.withDraw(doubleAmount, PayActivity.this);
+                            Transaction transaction = new Transaction(accountID, recipient.getText().toString(), doubleAmount, reference.getText().toString(), message.getText().toString(), chosenDate);
+                            JsonFileUtility.saveFile(transaction.makeJSONObject(), "history/" + accountID, transaction.getTime(), PayActivity.this);
+
                             Intent intent = new Intent(PayActivity.this, SecondActivity.class);
                             startActivity(intent);
                         } else {
@@ -106,5 +114,8 @@ public class PayActivity extends AppCompatActivity implements DatePickerDialog.O
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String date = "Date of payment: " + dayOfMonth + "/" + (month + 1) + "/" + year;
                 dateText.setText(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, dayOfMonth);
+                chosenDate = calendar.getTime();
     }
 }

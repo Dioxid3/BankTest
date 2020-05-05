@@ -61,6 +61,15 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button withDrawBtn = (Button)findViewById(R.id.sa_withDrawBtn);
+        withDrawBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, WithDrawActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
     }

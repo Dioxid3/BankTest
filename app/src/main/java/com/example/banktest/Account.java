@@ -67,6 +67,9 @@ public class Account implements Serializable {
         if (amount < 0){
             return;
         }
+        if ((balance - amount) < 0){
+            return;
+        }
         balance = balance - amount;
         JsonFileUtility.saveFile(this.makeJSONObject(), "accounts", this.getAccountID(), context);
     }
