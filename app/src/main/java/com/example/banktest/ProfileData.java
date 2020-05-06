@@ -42,6 +42,10 @@ public class ProfileData {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Makes JSON object from ProfileData class
+     * @return JSON object
+     */
     public JSONObject makeJSONObject () {
 
         JSONObject obj = new JSONObject() ;

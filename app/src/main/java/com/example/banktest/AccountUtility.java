@@ -60,4 +60,12 @@ public class AccountUtility {
     public static void editAccount(Account account, Context context) {
         addAccount(account, context); // Overwrites file and saves to this class internally
     }
+
+    public static void addCardToAccount(Card card, Account account, Context context) {
+        if (account.hasCard()){
+            return;
+        }
+        account.setCard(card);
+        editAccount(account, context);
+    }
 }

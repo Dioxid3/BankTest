@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AccountUtility.loadAccounts(this);
+        AccountUtility.loadAccounts(this); // Accounts will be loaded at this point
 
         userNumber = (EditText)findViewById(R.id.etUserNumber);
         userPasscode = (EditText)findViewById(R.id.etUserPasscode);

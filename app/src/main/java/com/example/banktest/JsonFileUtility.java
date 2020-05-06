@@ -25,7 +25,7 @@ public class JsonFileUtility {
      * @param object
      * @param fileName
      */
-    public static void  saveFile(JSONObject object, String folderName, String fileName, Context context) {
+    public static void saveFile(JSONObject object, String folderName, String fileName, Context context) {
         try {
             Writer output = null;
             File file = new File(context.getFilesDir() + "/" + folderName + "/" + fileName + ".json");
@@ -74,6 +74,11 @@ public class JsonFileUtility {
         return null;
     }
 
+    /**
+     * Loads file and returns JSON object
+     * @param file
+     * @return JSON object
+     */
     public static JSONObject loadFile(File file) {
         String json = null;
         try {

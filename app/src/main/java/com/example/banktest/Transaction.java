@@ -74,8 +74,31 @@ public class Transaction {
         transactionType = TransactionType.MY_TRANSFER;
     }
 
+    /**
+     * Makes transaction object from JSON object
+     * @param obj
+     */
+    public Transaction(JSONObject obj) {
+
+        try {
+            this.accountIDFrom = obj.getString("accountIDFrom");
+            this.accountIDTo = obj.getString("accountIDTo");
+            this.amount = obj.getDouble("amount");
+            this.transactionType = TransactionType.valueOf(obj.getString("transactionType"));
+            this.reference = obj.getString("reference");
+            this.message = obj.getString("message");
+            this.date = new Date(obj.getLong("date"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
+    /**
+     * Makes JSONObject from this transaction
+     * @return JSON object
+     */
     public JSONObject makeJSONObject () {
 
         JSONObject obj = new JSONObject() ;
@@ -96,22 +119,11 @@ public class Transaction {
         return obj;
     }
 
-    public Transaction(JSONObject obj) {
 
-        try {
-            this.accountIDFrom = obj.getString("accountIDFrom");
-            this.accountIDTo = obj.getString("accountIDTo");
-            this.amount = obj.getDouble("amount");
-            this.transactionType = TransactionType.valueOf(obj.getString("transactionType"));
-            this.reference = obj.getString("reference");
-            this.message = obj.getString("message");
-            this.date = new Date(obj.getLong("date"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
+    /**
+     * Makes UI text to selected transaction type
+     * @return UI text string
+     */
     public String getUIText(){
         if(TransactionType.DEPOSIT.equals(transactionType)){
             return date + " Deposit " + accountIDTo + " " + amount + " €";
@@ -127,6 +139,10 @@ public class Transaction {
         }
     }
 
+    /**
+     * Gives time of transaction
+     * @return Time String
+     */
     public String getTime(){
         return date.getTime() + "";
     }

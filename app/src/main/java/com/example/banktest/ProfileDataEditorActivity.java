@@ -11,7 +11,7 @@ import android.widget.EditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProfileDataEditor extends AppCompatActivity {
+public class ProfileDataEditorActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText address;
@@ -28,9 +28,9 @@ public class ProfileDataEditor extends AppCompatActivity {
 
         if (profileData == null) {
 
-            JSONObject obj =  JsonFileUtility.loadFile("profile","accountData", ProfileDataEditor.this);
+            JSONObject obj =  JsonFileUtility.loadFile("profile","accountData", ProfileDataEditorActivity.this);
 
-            if (obj == null){
+            if (obj == null){ // If there is no file, uses default info
                 profileData = new ProfileData();
             } else {
                 try {
@@ -58,9 +58,9 @@ public class ProfileDataEditor extends AppCompatActivity {
                 profileData.setPhoneNumber(phoneNumber.getText().toString());
 
                 JSONObject obj = profileData.makeJSONObject();
-                JsonFileUtility.saveFile(obj,"profile", "accountData", ProfileDataEditor.this);
+                JsonFileUtility.saveFile(obj,"profile", "accountData", ProfileDataEditorActivity.this);
 
-                Intent intent = new Intent(ProfileDataEditor.this, SecondActivity.class);
+                Intent intent = new Intent(ProfileDataEditorActivity.this, SecondActivity.class);
                 startActivity(intent);
 
 

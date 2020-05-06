@@ -11,6 +11,7 @@ public class Account implements Serializable {
 
 
 
+
     public enum AccountType {SAVINGS_ACCOUNT, CURRENT_ACCOUNT};
 
     private AccountType accountType = AccountType.CURRENT_ACCOUNT;
@@ -19,17 +20,28 @@ public class Account implements Serializable {
     private double balance = 0.0;
     private double usageLimit = 100;
     private boolean canPay = true;
+    private Card card;
 
-    public Account(AccountType accountType, String accountID, String accountName, boolean canPay) {
+    /**
+     * Constructs an account object
+     * @param accountType
+     * @param accountID
+     * @param accountName
+     * @param canPay
+     */
+    public Account(AccountType accountType, String accountID, String accountName, boolean canPay, Card card, double balance) {
         this.accountType = accountType;
         this.accountID = accountID;
         this.accountName = accountName;
         this.canPay = canPay;
+        this.card = card;
+        this.balance = balance;
     }
 
-    public Account() {
-    }
-
+    /**
+     * Constructs an account object from Json object
+     * @param obj
+     */
     public Account(JSONObject obj) {
 
         try {
@@ -39,11 +51,38 @@ public class Account implements Serializable {
             this.balance = obj.getDouble("balance");
             this.usageLimit = obj.getDouble("usageLimit");
             this.canPay = obj.getBoolean("canPay");
+            this.card = Card.makeCard(obj.getJSONObject("card"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
+
+
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public boolean canAfford(double doubleAmount) {
+        double minimumLimit = 0;
+        if (card != null){
+            if (card instanceof CreditCard){
+                CreditCard creditCard = (CreditCard)card;
+                minimumLimit = -creditCard.getCreditLimit();
+            }
+        }
+        if ((balance - doubleAmount) < minimumLimit){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
     /**
      * Adds money to account
@@ -67,11 +106,19 @@ public class Account implements Serializable {
         if (amount < 0){
             return;
         }
-        if ((balance - amount) < 0){
+        if(!canAfford(amount)){
             return;
         }
         balance = balance - amount;
         JsonFileUtility.saveFile(this.makeJSONObject(), "accounts", this.getAccountID(), context);
+    }
+
+    /**
+     * Checks if account has card
+     * @return boolean, true = has card
+     */
+    public boolean hasCard(){
+        return card != null;
     }
 
     public double getBalance(){
@@ -83,40 +130,29 @@ public class Account implements Serializable {
     }
 
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
+
 
     public String getAccountName() {
         return accountName;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
 
-    public double getUsageLimit() {
-        return usageLimit;
-    }
-
-    public void setUsageLimit(double usageLimit) {
-        this.usageLimit = usageLimit;
-    }
 
     public boolean isCanPay() {
         return canPay;
     }
 
-    public void setCanPay(boolean canPay) {
-        this.canPay = canPay;
-    }
+
 
     public String getAccountID() {
         return accountID;
     }
 
 
-
+    /**
+     * Makes Json representation of an account
+     * @return JSONObject with account details
+     */
     public JSONObject makeJSONObject () {
 
         JSONObject obj = new JSONObject() ;
@@ -128,6 +164,12 @@ public class Account implements Serializable {
             obj.put("balance", balance);
             obj.put("usageLimit", usageLimit);
             obj.put("canPay", canPay);
+
+            if (card != null){
+                obj.put("card", card.makeJSONObject());
+            }else{
+                obj.put("card", JSONObject.NULL);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

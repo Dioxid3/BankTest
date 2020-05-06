@@ -81,6 +81,7 @@ public class TransferActivity extends AppCompatActivity {
                 try {
                     double amountDouble = Double.parseDouble(amount.getText().toString());
                     if (amountDouble <= account1.getBalance()){
+                        // Transfer money from account1 to account2 and makes history events of both
                         account1.withDraw(amountDouble, TransferActivity.this);
                         account2.deposit(amountDouble, TransferActivity.this);
                         Transaction transaction = new Transaction(accountID1, accountID2, amountDouble);

@@ -12,9 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
-public class AccountEditor extends AppCompatActivity {
+public class AccountEditorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +30,7 @@ public class AccountEditor extends AppCompatActivity {
         accountID.setText(account.getAccountID());
         accountName.setText(account.getAccountName());
 
+        // Populating Spinner with ENUM values
         Account.AccountType[] typeArray = Account.AccountType.values();
         String[] arraySpinner = new String[typeArray.length];
 
@@ -44,6 +43,7 @@ public class AccountEditor extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        // Select correct account type toi spinner
         if (account.getAccountType().name() != null) {
             int spinnerPosition = adapter.getPosition(account.getAccountType().name());
             spinner.setSelection(spinnerPosition);
@@ -61,10 +61,11 @@ public class AccountEditor extends AppCompatActivity {
                 String newAccountType = spinner.getSelectedItem().toString();
                 boolean newCanPay = canPay.isChecked();
 
-                Account newAccount = new Account(Account.AccountType.valueOf(newAccountType), newAccountID, newAccountName, newCanPay);
-                AccountUtility.editAccount(newAccount, AccountEditor.this);
+                // Account will be overwritten
+                Account newAccount = new Account(Account.AccountType.valueOf(newAccountType), newAccountID, newAccountName, newCanPay, account.getCard(), account.getBalance());
+                AccountUtility.editAccount(newAccount, AccountEditorActivity.this);
 
-                Intent intent = new Intent(AccountEditor.this, AccountsActivity.class);
+                Intent intent = new Intent(AccountEditorActivity.this, AccountsActivity.class);
                 startActivity(intent);
             }
         });

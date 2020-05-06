@@ -20,7 +20,7 @@ public class SecondActivity extends AppCompatActivity {
         editAccountBtn.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             Intent intent = new Intent(SecondActivity.this, ProfileDataEditor.class);
+             Intent intent = new Intent(SecondActivity.this, ProfileDataEditorActivity.class);
              startActivity(intent);
          }
         });
@@ -75,6 +75,15 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SecondActivity.this, AccountHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button addCardBtn = (Button)findViewById(R.id.sa_addCardBtn);
+        addCardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this, InsertCardActivity.class);
                 startActivity(intent);
             }
         });

@@ -11,9 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import org.json.JSONObject;
-
-public class AccountCreation extends AppCompatActivity {
+public class AccountCreationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +21,7 @@ public class AccountCreation extends AppCompatActivity {
 
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
+        // Populating Spinner with ENUM values
         Account.AccountType[] typeArray = Account.AccountType.values();
         String[] arraySpinner = new String[typeArray.length];
 
@@ -50,10 +49,10 @@ public class AccountCreation extends AppCompatActivity {
                 String accountType = spinnerAccountType.getSelectedItem().toString();
                 boolean canPay = canPayCheck.isChecked();
 
-                Account newAccount = new Account(Account.AccountType.valueOf(accountType), accountID, accountName, canPay);
-                AccountUtility.addAccount(newAccount, AccountCreation.this);
+                Account newAccount = new Account(Account.AccountType.valueOf(accountType), accountID, accountName, canPay, null, 0);
+                AccountUtility.addAccount(newAccount, AccountCreationActivity.this);
 
-                Intent intent = new Intent(AccountCreation.this, AccountsActivity.class);
+                Intent intent = new Intent(AccountCreationActivity.this, AccountsActivity.class);
                 startActivity(intent);
             }
         });

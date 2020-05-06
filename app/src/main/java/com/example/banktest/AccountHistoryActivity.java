@@ -50,6 +50,11 @@ public class AccountHistoryActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Loads transaction history for specific account
+     * @param account
+     */
     private void loadHistory(Account account){
         LinearLayout historyEvents = (LinearLayout)findViewById(R.id.aha_historyEvents);
         historyEvents.removeAllViews();
@@ -73,6 +78,10 @@ public class AccountHistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Takes an transaction object and adds its data to display view
+     * @param transaction
+     */
     private void addTransactionToView(Transaction transaction){
         TextView textView1 = new TextView(this);
         textView1.setText(transaction.getUIText());

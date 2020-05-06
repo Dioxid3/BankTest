@@ -7,12 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.json.JSONObject;
-
-import java.io.File;
 
 public class AccountsActivity extends AppCompatActivity {
 
@@ -26,7 +21,7 @@ public class AccountsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccountsActivity.this, AccountCreation.class);
+                Intent intent = new Intent(AccountsActivity.this, AccountCreationActivity.class);
                 startActivity(intent);
             }
         });
@@ -57,7 +52,7 @@ public class AccountsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccountsActivity.this, AccountEditor.class);
+                Intent intent = new Intent(AccountsActivity.this, AccountEditorActivity.class);
                 intent.putExtra("Account", account);
                 startActivity(intent);
             }
