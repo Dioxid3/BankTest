@@ -11,6 +11,8 @@ public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Tähän .csv-tiedosto joka on luotu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
